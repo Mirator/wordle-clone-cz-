@@ -1,0 +1,13 @@
+{
+  "name": "wordle-clone-cz",
+  "version": "1.0.0",
+  "description": "Czech Wordle clone with validated word list",
+  "license": "MIT",
+  "scripts": {
+    "build:words": "node scripts/build_wordlist.js",
+    "check:words": "node scripts/build_wordlist.js --check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

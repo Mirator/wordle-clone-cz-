@@ -58,4 +58,5 @@ Plnohodnotná verze Wordle pro češtinu s diakritikou, určená pro jednoduché
 ## Úprava slovníků
 - `SOLUTIONS` obsahuje kandidátní řešení (pětiznaková slova, diakritika povolena).
 - `ALLOWED` zahrnuje `SOLUTIONS` a další povolené tipy. Vše ve velkých písmenech.
-- Po úpravě stačí změnit `words.js`; není potřeba build krok.
+- `words.js` je generovaný skriptem `npm run build:words` z otevřených zdrojů: frekvenční seznam OpenSubtitles (HermitDave FrequencyWords) a oficiální slovník LibreOffice (cs_CZ Hunspell). Skript normalizuje Unicode, filtruje na 5 glyfů, deduplikuje a validuje, že slova existují ve slovníku.
+- Při změně zdrojových dat nebo aktualizaci repozitáře spusťte `npm run build:words`. CI (`npm run check:words`) kontroluje, že committed `words.js` odpovídá vygenerovanému obsahu.
