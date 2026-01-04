@@ -18,9 +18,21 @@
   const statusPriority = [Status.ABSENT, Status.BASE, Status.PRESENT, Status.EXACT];
 
   const keyboardLayout = [
-    ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "Ů", "Ú"],
-    ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ě", "Š", "Č"],
-    ["Ř", "Y", "X", "C", "V", "B", "N", "M", "Á", "Í", "É", "Ň", "Ť", "Ž", "Ý"],
+    ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P"],
+    ["Ů", "Ú", "A", "S", "D", "F", "G", "H", "J", "K", "L"],
+    ["Ě", "Š", "Č", "Ř", "Y", "X", "C", "V", "B", "N"],
+    [
+      { action: "enter", label: "ENTER" },
+      "M",
+      "Á",
+      "Í",
+      "É",
+      "Ň",
+      "Ť",
+      "Ž",
+      "Ý",
+      { action: "backspace", label: "⌫" },
+    ],
   ];
 
   let state = {
@@ -224,29 +236,22 @@
 
   function buildKeyboard() {
     dom.keyboard.innerHTML = "";
-    keyboardLayout.forEach((rowKeys, rowIdx) => {
+    keyboardLayout.forEach((rowKeys) => {
       const row = document.createElement("div");
       row.className = "key-row";
       rowKeys.forEach((key) => {
         const btn = document.createElement("button");
         btn.className = "key";
-        btn.textContent = key;
-        btn.dataset.key = key;
+        if (typeof key === "string") {
+          btn.textContent = key;
+          btn.dataset.key = key;
+        } else {
+          btn.textContent = key.label;
+          btn.dataset.action = key.action;
+          btn.classList.add("wide");
+        }
         row.appendChild(btn);
       });
-      if (rowIdx === keyboardLayout.length - 1) {
-        const enter = document.createElement("button");
-        enter.className = "key wide";
-        enter.dataset.action = "enter";
-        enter.textContent = "ENTER";
-        row.insertBefore(enter, row.firstChild);
-
-        const back = document.createElement("button");
-        back.className = "key wide";
-        back.dataset.action = "backspace";
-        back.textContent = "⌫";
-        row.appendChild(back);
-      }
       dom.keyboard.appendChild(row);
     });
   }
